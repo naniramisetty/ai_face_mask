@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Vigilance | Mask Detection Dashboard</title>
+    
+    <!-- Premium Fonts & Icons -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-icon">
+                <i data-lucide="shield-check" style="color: white; width: 24px;"></i>
+            </div>
+            <span class="logo-text">AI VIGILANCE</span>
+        </div>
+
+        <nav class="nav-links">
+            <div class="nav-item">
+                <a href="#" class="nav-link active" data-target="view-dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link" data-target="view-dashboard">
+                    <i data-lucide="camera"></i>
+                    <span>Live Monitor</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link" data-target="view-analytics">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link" data-target="view-settings">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="nav-item mt-auto">
+            <a href="#" class="nav-link" data-target="view-support">
+                <i data-lucide="help-circle"></i>
+                <span>Support</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <header class="header">
+            <div class="welcome-msg">
+                <h1>Active Surveillance</h1>
+                <p>Real-time face mask monitoring system</p>
+            </div>
+            <div class="header-right">
+                <div class="glass-card" style="padding: 0.5rem 1.5rem; border-radius: 12px;">
+                    <span id="current-time" style="font-weight: 500; letter-spacing: 1px;">00:00:00</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Alert Banner -->
+        <div id="alert-banner" class="alert-banner">
+            <div class="alert-icon-container">
+                <i data-lucide="alert-triangle" style="color: white; width: 22px;"></i>
+            </div>
+            <div class="alert-message">
+                <h4>Safety Violation Detected</h4>
+                <p id="alert-text">2 persons not wearing mask!</p>
+            </div>
+        </div>
+
+        <div id="view-dashboard" class="view-section" style="display: block;">
+            <div class="dashboard-grid">
+                
+                <!-- Left: Video Feed -->
+                <section class="video-card">
+                    <div class="live-badge">LIVE FEED</div>
+                    <div class="video-container">
+                        <img src="{{ url_for('video_feed') }}" alt="Camera Stream">
+                    </div>
+                    <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h3 style="font-size: 1.1rem; margin-bottom: 4px;">Main Entry Camera 01</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Status: <span style="color: var(--success);">Connected</span></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right: Stats Panel -->
+                <aside class="stats-panel">
+                    
+                    <!-- Safety Score -->
+                    <div class="glass-card safety-meter">
+                        <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem;">SAFETY RATING</h3>
+                        <div class="meter-container">
+                            <svg class="meter-svg" viewBox="0 0 160 160">
+                                <circle class="meter-bg" cx="80" cy="80" r="70"></circle>
+                                <circle class="meter-progress" cx="80" cy="80" r="70"></circle>
+                            </svg>
+                            <div class="meter-content">
+                                <span id="safety-score" class="meter-score">0%</span>
+                                <span class="meter-label">SCORE</span>
+                            </div>
+                        </div>
+                        <div id="status-badge" class="status-badge">
+                            <span id="status-text">Analyzing...</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Row -->
+                    <div class="stat-row">
+                        <div class="glass-card small-stat-card">
+                            <span id="stat-total" class="stat-value">0</span>
+                            <span class="stat-name">Total</span>
+                        </div>
+                        <div class="glass-card small-stat-card">
+                            <span id="stat-mask" class="stat-value" style="color: var(--success);">0</span>
+                            <span class="stat-name">Mask</span>
+                        </div>
+                        <div class="glass-card small-stat-card">
+                            <span id="stat-no-mask" class="stat-value" style="color: var(--danger);">0</span>
+                            <span class="stat-name">No Mask</span>
+                        </div>
+                    </div>
+
+                    <!-- System Status -->
+                    <div class="glass-card" style="padding: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase;">System Information</h4>
+                        <div class="system-status">
+                            <span>Connection</span>
+                            <span style="color: var(--success);">Stable</span>
+                        </div>
+                        <div class="system-status">
+                            <span>Monitoring</span>
+                            <span id="uptime-val">00:00:00</span>
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+
+        <!-- Analytics View -->
+        <div id="view-analytics" class="view-section" style="display: none;">
+            <div class="glass-card" style="padding: 2rem; min-height: 400px;">
+                <h2 style="margin-bottom: 1rem; color: white;">Analytics Overview</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Historical data and compliance trends will be displayed here.</p>
+                <div style="background: rgba(255,255,255,0.05); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 1px dashed rgba(255,255,255,0.1);">
+                    <div style="text-align: center; color: var(--text-muted);">
+                        <i data-lucide="bar-chart-2" style="width: 48px; height: 48px; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Analytics module initialization pending...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings View -->
+        <div id="view-settings" class="view-section" style="display: none;">
+            <div class="glass-card" style="padding: 2rem; min-height: 400px;">
+                <h2 style="margin-bottom: 1rem; color: white;">System Settings</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Configure detection parameters and alerts.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div>
+                            <h4 style="color: white; margin-bottom: 4px;">Email Alerts</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Send an email when someone is not wearing a mask.</p>
+                        </div>
+                        <div id="toggle-email" class="toggle-switch active" style="width: 40px; height: 24px; background: var(--success); border-radius: 12px; position: relative; cursor: pointer; transition: background 0.3s;">
+                            <div class="toggle-knob" style="width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; right: 2px; transition: right 0.3s, left 0.3s;"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <div>
+                            <h4 style="color: white; margin-bottom: 4px;">Strict Mode</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Increase face detection confidence threshold.</p>
+                        </div>
+                        <div id="toggle-strict" class="toggle-switch" style="width: 40px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 12px; position: relative; cursor: pointer; transition: background 0.3s;">
+                            <div class="toggle-knob" style="width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: right 0.3s, left 0.3s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support View -->
+        <div id="view-support" class="view-section" style="display: none;">
+            <div class="glass-card" style="padding: 2rem; min-height: 400px;">
+                <h2 style="margin-bottom: 1rem; color: white;">Help & Support</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Contact our team for technical assistance.</p>
+                <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 500px;">
+                    <input type="text" placeholder="Your Name" style="padding: 1rem; border-radius: 8px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                    <textarea rows="4" placeholder="Describe your issue..." style="padding: 1rem; border-radius: 8px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white;"></textarea>
+                    <button style="padding: 1rem; border-radius: 8px; background: var(--primary); color: white; border: none; font-weight: 600; cursor: pointer;">Send Message</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Trigger Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

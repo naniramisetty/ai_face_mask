@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 25f801d7c29f1320e139bec3887fcf77e05b59f6 Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1777005868 +0530	commit (initial): Final
+25f801d7c29f1320e139bec3887fcf77e05b59f6 25f801d7c29f1320e139bec3887fcf77e05b59f6 Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1777009097 +0530	Branch: renamed refs/heads/master to refs/heads/main
+25f801d7c29f1320e139bec3887fcf77e05b59f6 df392249546b43c95d0913b4be97b080b84b08c1 Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1778522602 +0530	commit: first deploy
+df392249546b43c95d0913b4be97b080b84b08c1 269ec7be31108e957b5c19b8f75065b46cbcf85f Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1778608405 +0530	commit: Initial project commit
+269ec7be31108e957b5c19b8f75065b46cbcf85f 269ec7be31108e957b5c19b8f75065b46cbcf85f Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1778608560 +0530	Branch: renamed refs/heads/main to refs/heads/main
+269ec7be31108e957b5c19b8f75065b46cbcf85f 29f4d28694109882614ee5358e4adbf188de03f5 Pralayakaveri Thrinesh <pthrinesh42@gmail.com> 1778609594 +0530	commit: added procfile
